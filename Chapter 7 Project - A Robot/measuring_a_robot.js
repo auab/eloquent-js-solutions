@@ -10,6 +10,11 @@ For the sake of fairness, make sure you give each task to both robots, rather
 than generating different tasks per robot.
 */
 
+
+/*
+ANSWER
+One idea for the robot improvement is to observe which of the places is the best to start, instead of 
+*/
 //Meadowfield
 const roads = [
     "Alice's House-Bob's House", "Alice's House-Cabin",
