@@ -6,6 +6,14 @@ If you solved the previous exercise, you might want to use your compareRobots
 function to verify whether you improved the robot.
 */
 
+
+/*
+ANSWER
+One idea for the robot improvement is to observe which of the places is the best
+ to start, instead of go to the first place.
+*/
+
+
 //Meadowfield
 const roads = [
     "Alice's House-Bob's House", "Alice's House-Cabin",
@@ -74,12 +82,8 @@ function randomPick(array) {
     let choice = Math.floor(Math.random() * array.length);
     return array[choice];
 }
-function randomRobot(state) {
-    return {direction: randomPick(roadGraph[state.place])};
-}
 
-
-VillageState.random = function(parcelCount = 5) {
+VillageState.random = function(parcelCount = 12) {
     let parcels = [];
     for (let i = 0; i < parcelCount; i++) {
         let address = randomPick(Object.keys(roadGraph));
@@ -92,24 +96,6 @@ VillageState.random = function(parcelCount = 5) {
     return new VillageState("Post Office", parcels);
 };
 
-runRobot(VillageState.random(), randomRobot);
-
-//The mail truck's route
-const mailRoute = [
-    "Alice's House", "Cabin", "Alice's House", "Bob's House",
-    "Town Hall", "Daria's House", "Ernie's House",
-    "Grete's House", "Shop", "Grete's House", "Farm",
-    "Marketplace", "Post Office"
-];
-
-function routeRobot(state, memory) {
-    if (memory.length == 0) {
-        memory = mailRoute;
-    }
-    return {direction: memory[0], memory: memory.slice(1)};
-}
-
-runRobot(VillageState.random(), routeRobot,[]);
 
 function findRoute(graph, from, to) {
         let work = [{at: from, route: []}];
@@ -148,6 +134,7 @@ function compareRobots(robot1,robot2){
         let state = VillageState.random();
         turnsArray1.push(runRobot(VillageState.random(), robot1,[]));
         turnsArray2.push(runRobot(VillageState.random(), robot2,[]));
+        console.log(`test number ${i} of 100`);
     }
     
     turnAverage1 = turnsArray1.reduce((a,b)=>a+b,0)/turnsArray1.length;
@@ -159,10 +146,10 @@ function compareRobots(robot1,robot2){
 function findBestParcelIndex(place, parcels){
     let minimunIndex = null;
     let minimumSteps = 100;
-    for(i=0;i<parcels.length;i++) {
-        route = findRoute(roadGraph, place, parcels[i].place);
+    for(j=0;j<parcels.length;j++) {
+        route = findRoute(roadGraph, place, parcels[j].place);
         if(route.length<minimumSteps){
-            minimunIndex = i;
+            minimunIndex = j;
             minimumSteps=route.length;
         }
     }
@@ -185,3 +172,4 @@ return {direction: route[0], memory: route.slice(1)};
 }
 
 compareRobots(goalOrientedRobot,goalOrientedRobotOptimized);
+//robot 1 has an average turn of 18.18 and robot 2 has an average turns of 15.62
