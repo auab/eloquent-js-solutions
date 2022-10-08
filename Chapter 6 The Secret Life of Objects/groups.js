@@ -23,8 +23,7 @@ class Group{
     }
     delete(item){
         if(this.groupValues.includes(item)){
-            let index = this.groupValues.indexOf(item)
-            this.groupValues = this.groupValues.slice(0,index).concat(this.groupValues.slice(index+1));
+            this.groupValues = this.groupValues.filter(element=>element!==item);
         }else{
             console.log('this item is not in the group');
         }
