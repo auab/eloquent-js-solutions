@@ -1,0 +1,45 @@
+<!--
+The document.getElementsByTagName method returns all child elements with a
+given tag name. Implement your own version of this as a function that takes a
+node and a string (the tag name) as arguments and returns an array containing
+all descendant element nodes with the given tag name.
+To find the tag name of an element, use its nodeName property. But note
+that this will return the tag name in all uppercase. Use the toLowerCase or
+toUpperCase string methods to compensate for this.
+-->
+<!doctype html>
+<html>
+<head>
+    <title>My home page</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>name</th>
+            <th>height</th>
+            <th>place</th>
+        </tr>
+        <tr>
+            <td>Kilimanjaro</td>
+            <td>5895</td>
+            <td>Tanzania</td>
+        </tr>
+        </table>
+</body>
+
+<script>
+    function getElementsByTagName(node, tag, arrayOutput = []){
+        if(node.nodeName.toLowerCase()===tag){
+            arrayOutput.push(node);
+        }
+        if(node.hasChildNodes()===true){
+            for(childNode of node.childNodes){
+                getElementsByTagName(childNode, tag, arrayOutput);
+            }
+        }
+        return arrayOutput;
+    }
+    //getElementsByTagName(document.body, 'td')
+    // [td, td, td]
+</script>
+
