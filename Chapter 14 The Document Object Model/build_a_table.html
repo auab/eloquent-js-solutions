@@ -52,35 +52,20 @@ their style.textAlign property to "right".
         let row = createRow([mountainData.name,mountainData.height,mountainData.place],'td');
         mountainTable.appendChild(row);
     }
-    function createRowElement(elementText){
-        let rowElement = document.createElement('td');
-        let rowText = document.createTextNode(elementText)
-        rowElement.appendChild(rowText);
+    function createRowElement(elementText,rowType){
+        let rowElement = document.createElement(rowType);
+        rowElement.innerHTML = elementText 
         return rowElement;
     }
-    function createHeaderElement(elementText){
-        let rowElement = document.createElement('th');
-        let rowText = document.createTextNode(elementText)
-        rowElement.appendChild(rowText);
-        return rowElement;
-    }
-
     function createRow(inputsArray,rowType){
         let row = document.createElement('tr');
         for(input of inputsArray){
-            if(rowType=='td'){
-                let rowElement = createRowElement(input);
+                let rowElement = createRowElement(input,rowType);
                 row.appendChild(rowElement);
-            }
-            else if(rowType=='th'){
-                let rowElement = createHeaderElement(input);  
-                row.appendChild(rowElement);
-            }
-
         }
         return row;
     }
-    mountainTableLocation = document.getElementById('mountains');
+    let mountainTableLocation = document.getElementById('mountains');
     mountainTableLocation.appendChild(mountainTable);
 
     let rowsElements = document.body.getElementsByTagName('td');
