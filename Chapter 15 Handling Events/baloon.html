@@ -25,11 +25,15 @@ deflate the explosion).
 <script>
     let baloon = document.getElementById('baloon');
 
-    window.addEventListener("keydown", event => {
-    if (event.key == "ArrowUp") {
+    function expandBaloon(event){
+        if (event.key == "ArrowUp") {
         let pixelNumberReg = /\d+/;
         let pixelText = baloon.style.fontSize;
         let pixelNumber = pixelNumberReg.exec(pixelText)[0];
+        if(pixelNumber>100){
+            baloon.innerHTML = '💥';
+            window.removeEventListener("keydown",expandBaloon)
+        }
         pixelNumber = Math.floor(1.1 *Number(pixelNumber));
         pixelText = pixelNumber.toString().concat('px');
         baloon.style.fontSize = pixelText;
@@ -40,7 +44,8 @@ deflate the explosion).
         pixelNumber = Math.floor(0.9 *Number(pixelNumber));
         pixelText = pixelNumber.toString().concat('px');
         baloon.style.fontSize = pixelText;
-    }
-});
+    }}
+
+    window.addEventListener("keydown", expandBaloon);
 </script>
 </html>
